@@ -1,0 +1,35 @@
+### health check
+# @name health
+GET http://localhost:8080/health
+
+### get products
+# @name query_all
+GET http://localhost:8080/v1/product
+
+### get product
+# @name query
+GET http://localhost:8080/v1/product/123456
+
+### add products
+# @name add
+POST  http://localhost:8080/v1/product
+
+{
+    "id": 123456,
+    "name": "sample",
+    "price": 1.1
+}
+
+### get products
+# @name update
+PUT  http://localhost:8080/v1/product
+
+{
+    "id": 123456,
+    "name": "sample",
+    "price": 1.3
+}2
+
+### delete product
+# @name delete
+DELETE http://localhost:8080/v1/product/123456
