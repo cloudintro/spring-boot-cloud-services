@@ -8,16 +8,15 @@ GET http://localhost:8080/v1/product
 
 ### get product
 # @name query
-GET http://localhost:8080/v1/product/123456
+GET http://localhost:8080/v1/product/2
 
 ### add products
 # @name add
 POST  http://localhost:8080/v1/product
 
-{
-    "id": 123456,
-    "name": "sample",
-    "price": 1.1
+{  "id": 2,
+    "name": "product sample1",
+    "price": 1.4
 }
 
 ### get products
@@ -25,11 +24,11 @@ POST  http://localhost:8080/v1/product
 PUT  http://localhost:8080/v1/product
 
 {
-    "id": 123456,
-    "name": "sample",
-    "price": 1.3
-}2
+    "id": 1,
+    "name": "product updated",
+    "price": 1.5
+}
 
 ### delete product
 # @name delete
-DELETE http://localhost:8080/v1/product/123456
+DELETE http://localhost:8080/v1/product/1

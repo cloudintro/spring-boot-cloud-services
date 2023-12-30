@@ -1,28 +1,21 @@
 package com.cloudcode.springcloud.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-
-@Entity
+@Entity(name = "product")
 @Getter
 @Setter
-@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-  @Id
-  private long id;
-  private String name;
-  private double price;
-  private LocalDateTime createOn;
-  private LocalDateTime updatedOn;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private Double price;
 }

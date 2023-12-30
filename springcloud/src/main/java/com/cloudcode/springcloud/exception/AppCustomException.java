@@ -3,9 +3,9 @@ package com.cloudcode.springcloud.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class NoDataFoundException extends RuntimeException {
-    public NoDataFoundException(String message) {
+@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+public class AppCustomException extends RuntimeException {
+    public AppCustomException(String message) {
         super(message);
     }
 }
