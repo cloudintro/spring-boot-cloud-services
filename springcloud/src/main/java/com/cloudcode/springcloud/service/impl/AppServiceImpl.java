@@ -21,9 +21,9 @@ public class AppServiceImpl implements AppService {
     private int seq = 0;
 
     @Autowired
-    private com.cloudcode.springcloud.dao.AppJdbcRepo appRepo;
+    // private com.cloudcode.springcloud.dao.AppJdbcRepo appRepo;
     // private com.cloudcode.springcloud.dao.AppJpaRepo appRepo;
-    // private com.cloudcode.springcloud.dao.AppDataJpaRepo appRepo;
+    private com.cloudcode.springcloud.dao.AppDataJpaRepo appRepo;
 
     @Override
     public List<Product> getProducts() {
