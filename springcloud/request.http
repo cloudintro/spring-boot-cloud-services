@@ -8,13 +8,13 @@ GET http://localhost:8080/v1/product
 
 ### get product
 # @name query
-GET http://localhost:8080/v1/product/2
+GET http://localhost:8080/v1/product/1
 
 ### add products
 # @name add
 POST  http://localhost:8080/v1/product
 
-{  "id": 2,
+{
     "name": "product sample1",
     "price": 1.4
 }

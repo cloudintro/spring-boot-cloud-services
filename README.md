@@ -1,1 +1,1 @@
-# spring-boot-made-easy
+# spring-boot-cloud-code

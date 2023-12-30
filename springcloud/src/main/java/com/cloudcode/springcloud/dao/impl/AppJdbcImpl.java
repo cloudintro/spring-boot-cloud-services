@@ -2,6 +2,7 @@ package com.cloudcode.springcloud.dao.impl;
 
 import com.cloudcode.springcloud.dao.AppJdbcRepo;
 import com.cloudcode.springcloud.model.Product;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,8 +34,13 @@ public class AppJdbcImpl implements AppJdbcRepo {
 
     @Override
     public Optional<Product> findById(long id) {
-        Product product = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, new BeanPropertyRowMapper<>(Product.class), id);
-        return Optional.ofNullable(product);
+        try {
+            Product product = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, new BeanPropertyRowMapper<>(Product.class),
+                    id);
+            return Optional.ofNullable(product);
+        } catch (EmptyResultDataAccessException ex) {
+            return Optional.empty();
+        }
     }
 
     @Override
