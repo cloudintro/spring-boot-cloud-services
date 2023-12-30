@@ -1,6 +1,12 @@
+# generate base64 of username:password
+# run below command in browser console
+# btoa("admin"+":"+"Admin_123")
+# @access_token=value of btoa("admin"+":"+"Admin_123")
+
 ### health check
 # @name health
 GET http://localhost:8080/health
+# Authorization: Basic {{access_token}}
 
 ### get products
 # @name query_all
@@ -32,3 +38,4 @@ PUT  http://localhost:8080/v1/product
 ### delete product
 # @name delete
 DELETE http://localhost:8080/v1/product/1
+
