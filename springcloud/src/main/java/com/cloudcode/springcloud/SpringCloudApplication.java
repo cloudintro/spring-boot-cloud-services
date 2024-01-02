@@ -1,5 +1,6 @@
 package com.cloudcode.springcloud;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,9 @@ public class SpringCloudApplication {
     }
 
     @GetMapping("/health")
-    public Map<String, Object> health() {
+    public Map<String, Object> health(@Value("${spring.application.name}") String name) {
         Map<String, Object> healthMap = new HashMap<>();
-        healthMap.put("name", "demo service");
+        healthMap.put("name", name);
         healthMap.put("localDateTime", LocalDateTime.now());
         return healthMap;
     }
