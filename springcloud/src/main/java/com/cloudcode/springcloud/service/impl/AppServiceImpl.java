@@ -5,18 +5,21 @@ import com.cloudcode.springcloud.model.Product;
 import com.cloudcode.springcloud.model.ProductRequest;
 import com.cloudcode.springcloud.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Service
 public class AppServiceImpl implements AppService {
 
     private static final String SUCCESS = "SUCCESS";
-    private static final String DATA_EXISTS_WITH_KEY = "Data already exists with key: ";
-    private static final String NO_DATA_FOUND_WITH_KEY = "No data found with key: ";
+
+    @Autowired
+    private MessageSource messageSource;
 
     private int seq = 0;
 
@@ -32,7 +35,8 @@ public class AppServiceImpl implements AppService {
 
     @Override
     public Product getProductById(Long id) {
-        return appRepo.findById(id).orElseThrow(() -> new AppCustomException(NO_DATA_FOUND_WITH_KEY + id));
+        return appRepo.findById(id).orElseThrow(() -> new AppCustomException(
+                messageSource.getMessage("error.data.does.not.exists", new Object[] { id }, Locale.getDefault())));
     }
 
     @Override
@@ -41,15 +45,16 @@ public class AppServiceImpl implements AppService {
         if (Objects.nonNull(request.getId())) {
             boolean exists = appRepo.existsById(request.getId());
             if (add && exists) {
-                throw new AppCustomException(DATA_EXISTS_WITH_KEY + request.getId());
+                throw new AppCustomException(messageSource.getMessage("error.data.already.exists",
+                        new Object[] { request.getId() }, Locale.getDefault()));
             } else if (!add && !exists) {
-                throw new AppCustomException(NO_DATA_FOUND_WITH_KEY + request.getId());
+                throw new AppCustomException(messageSource.getMessage("error.data.does.not.exists",
+                        new Object[] { request.getId() }, Locale.getDefault()));
             }
             product.setId(request.getId());
         } else {
             product.setId(Instant.now().toEpochMilli() + (++seq));
         }
-
 
         product.setName(request.getName());
         product.setPrice(request.getPrice());
@@ -59,7 +64,8 @@ public class AppServiceImpl implements AppService {
     @Override
     public String deleteProductById(Long id) {
         if (!appRepo.existsById(id)) {
-            throw new AppCustomException(NO_DATA_FOUND_WITH_KEY + id);
+            throw new AppCustomException(messageSource.getMessage("error.data.does.not.exists",
+                    new Object[] { id }, Locale.getDefault()));
         }
         appRepo.deleteById(id);
         return SUCCESS;
