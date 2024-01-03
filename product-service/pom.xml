@@ -29,13 +29,11 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>annotationProcessor</scope>
 		</dependency>
 		<!-- H2 database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<!--<scope>test</scope>-->
 		</dependency>
 		<!--my SQL database-->
 		<!--<dependency>

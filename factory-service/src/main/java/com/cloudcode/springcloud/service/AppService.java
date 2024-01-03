@@ -1,16 +1,10 @@
 package com.cloudcode.springcloud.service;
 
+import com.cloudcode.springcloud.model.FactoryResponse;
 import com.cloudcode.springcloud.model.Product;
-import com.cloudcode.springcloud.model.ProductRequest;
-
-import java.util.List;
 
 public interface AppService {
-    List<Product> getProducts();
+    FactoryResponse getFactoryProducts(String factoryName);
 
-    Product getProductById(Long id);
-
-    Product saveProduct(ProductRequest product, boolean add);
-
-    String deleteProductById(Long id);
+    FactoryResponse createFactoryProduct(String factoryName, Product request);
 }

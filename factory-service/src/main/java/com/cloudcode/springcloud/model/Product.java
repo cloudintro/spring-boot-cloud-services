@@ -1,21 +1,19 @@
 package com.cloudcode.springcloud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Entity(name = "product")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private Double price;
+    @Size(min = 3, max = 15, message = "name must be between 3 to 15 characters")
+    private String productName;
+    @Min(value = 0, message = "price can not be less than 0")
+    private Double productPrice;
 }

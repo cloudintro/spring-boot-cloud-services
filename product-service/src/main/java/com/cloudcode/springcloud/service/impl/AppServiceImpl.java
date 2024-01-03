@@ -36,7 +36,7 @@ public class AppServiceImpl implements AppService {
     @Override
     public Product getProductById(Long id) {
         return appRepo.findById(id).orElseThrow(() -> new AppCustomException(
-                messageSource.getMessage("error.data.does.not.exists", new Object[] { id }, Locale.getDefault())));
+                messageSource.getMessage("error.data.does.not.exists", new Object[]{id}, Locale.getDefault())));
     }
 
     @Override
@@ -46,10 +46,10 @@ public class AppServiceImpl implements AppService {
             boolean exists = appRepo.existsById(request.getId());
             if (add && exists) {
                 throw new AppCustomException(messageSource.getMessage("error.data.already.exists",
-                        new Object[] { request.getId() }, Locale.getDefault()));
+                        new Object[]{request.getId()}, Locale.getDefault()));
             } else if (!add && !exists) {
                 throw new AppCustomException(messageSource.getMessage("error.data.does.not.exists",
-                        new Object[] { request.getId() }, Locale.getDefault()));
+                        new Object[]{request.getId()}, Locale.getDefault()));
             }
             product.setId(request.getId());
         } else {
@@ -65,7 +65,7 @@ public class AppServiceImpl implements AppService {
     public String deleteProductById(Long id) {
         if (!appRepo.existsById(id)) {
             throw new AppCustomException(messageSource.getMessage("error.data.does.not.exists",
-                    new Object[] { id }, Locale.getDefault()));
+                    new Object[]{id}, Locale.getDefault()));
         }
         appRepo.deleteById(id);
         return SUCCESS;
