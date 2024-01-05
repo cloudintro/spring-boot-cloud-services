@@ -25,13 +25,13 @@ public class AppController {
 
     @GetMapping("/{factoryName}/products")
     public ResponseEntity<FactoryResponse> getProducts(@PathVariable String factoryName) {
-        log.info("received get product request");
+        log.info("received get product request for factory: {}", factoryName);
         return new ResponseEntity<>(appService.getFactoryProducts(factoryName), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/{factoryName}/product")
+    @PostMapping("/{factoryName}/product")
     public ResponseEntity<FactoryResponse> createProduct(@PathVariable String factoryName, @RequestBody @Valid Product product) {
-        log.info("received add product request");
+        log.info("received add product requestfor factory: {}, product: {}", factoryName, product);
         return new ResponseEntity<>(appService.createFactoryProduct(factoryName, product), HttpStatus.CREATED);
     }
 

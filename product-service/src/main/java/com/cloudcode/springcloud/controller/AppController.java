@@ -35,25 +35,25 @@ public class AppController {
 
     @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        log.info("received get product by id request");
+        log.info("received get product by id request: {}", id);
         return new ResponseEntity<>(appService.getProductById(id), HttpStatus.OK);
     }
 
     @PostMapping(path = "/product")
     public ResponseEntity<Product> saveProduct(@RequestBody @Valid ProductRequest request) {
-        log.info("received add product request");
+        log.info("received add product request: {}", request);
         return new ResponseEntity<>(appService.saveProduct(request, true), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/product")
     public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductRequest request) {
-        log.info("received update product request");
+        log.info("received update product request: {}", request);
         return new ResponseEntity<>(appService.saveProduct(request, false), HttpStatus.OK);
     }
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<String> delProductById(@PathVariable Long id) {
-        log.info("received delete product by id request");
+        log.info("received delete product by id: {}", id);
         return new ResponseEntity<>(appService.deleteProductById(id), HttpStatus.OK);
     }
 

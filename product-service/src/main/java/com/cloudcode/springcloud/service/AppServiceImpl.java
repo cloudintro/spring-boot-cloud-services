@@ -1,9 +1,8 @@
-package com.cloudcode.springcloud.service.impl;
+package com.cloudcode.springcloud.service;
 
 import com.cloudcode.springcloud.exception.AppCustomException;
 import com.cloudcode.springcloud.model.Product;
 import com.cloudcode.springcloud.model.ProductRequest;
-import com.cloudcode.springcloud.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
