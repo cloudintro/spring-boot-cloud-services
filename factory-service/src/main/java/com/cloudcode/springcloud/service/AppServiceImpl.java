@@ -33,7 +33,7 @@ public class AppServiceImpl implements AppService {
     @Autowired
     private AppDataJpaRepo appRepo;
 
-    @Value("${product-service.auth.token}")
+    @Value("${product-service.auth.token:}")
     private String authToken;
 
     @Override
