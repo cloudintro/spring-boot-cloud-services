@@ -21,8 +21,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AppCustomException.class)
     public final ResponseEntity<ErrorDetail> handleCustomException(AppCustomException ex, WebRequest req) {
         return new ResponseEntity<ErrorDetail>(ErrorDetail.builder()
-                .status(HttpStatus.BAD_REQUEST.value()).error(ex.getMessage()).build(),
-                HttpStatus.BAD_REQUEST);
+                .status(ex.getHttpStatus().value()).error(ex.getMessage()).build(), ex.getHttpStatus());
     }
 
 }

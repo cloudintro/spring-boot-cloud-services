@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "product-service.auth.token",
+      "type": "java.lang.String",
+      "description": "'product-service.auth.token' is required to call product-service endpoints"
+    }
+  ]
+}

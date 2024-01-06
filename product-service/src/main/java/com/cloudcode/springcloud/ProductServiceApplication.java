@@ -12,10 +12,10 @@ import java.util.Map;
 
 @RestController
 @SpringBootApplication
-public class SpringCloudApplication {
+public class ProductServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudApplication.class, args);
+        SpringApplication.run(ProductServiceApplication.class, args);
     }
 
     @GetMapping("/health")

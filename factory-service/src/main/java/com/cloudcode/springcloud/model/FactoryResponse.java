@@ -14,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FactoryResponse {
-    private String factoryName;
+    private String factory;
     private List<Product> products;
 
     public FactoryResponse(String factoryName, Product product) {
-        this.factoryName = factoryName;
+        this.factory = factoryName;
         this.products = List.of(product);
     }
 }
