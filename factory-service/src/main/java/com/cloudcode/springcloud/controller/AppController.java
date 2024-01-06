@@ -1,5 +1,6 @@
 package com.cloudcode.springcloud.controller;
 
+import com.cloudcode.springcloud.model.Factory;
 import com.cloudcode.springcloud.model.FactoryResponse;
 import com.cloudcode.springcloud.model.Product;
 import com.cloudcode.springcloud.service.AppService;
@@ -23,6 +24,12 @@ public class AppController {
     @Autowired
     private AppService appService;
 
+    @PostMapping("/factory/{factoryName}")
+    public ResponseEntity<Factory> createFactory(@PathVariable String factoryName) {
+        log.info("received create factory request for : {}", factoryName);
+        return new ResponseEntity<>(appService.createFactory(factoryName), HttpStatus.CREATED);
+    }
+
     @GetMapping("/{factoryName}/products")
     public ResponseEntity<FactoryResponse> getProducts(@PathVariable String factoryName) {
         log.info("received get product request for factory: {}", factoryName);
@@ -30,7 +37,8 @@ public class AppController {
     }
 
     @PostMapping("/{factoryName}/product")
-    public ResponseEntity<FactoryResponse> createProduct(@PathVariable String factoryName, @RequestBody @Valid Product product) {
+    public ResponseEntity<FactoryResponse> createProduct(@PathVariable String factoryName,
+                                                         @RequestBody @Valid Product product) {
         log.info("received add product requestfor factory: {}, product: {}", factoryName, product);
         return new ResponseEntity<>(appService.createFactoryProduct(factoryName, product), HttpStatus.CREATED);
     }

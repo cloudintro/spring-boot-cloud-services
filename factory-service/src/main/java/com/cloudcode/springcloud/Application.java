@@ -12,12 +12,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.cloudcode.springcloud.client")
 @SpringBootApplication
-public class SpringCloudApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @GetMapping("/health")
