@@ -14,10 +14,10 @@ import java.util.Map;
 @RestController
 @EnableFeignClients(basePackages = "com.cloudcode.springcloud.client")
 @SpringBootApplication
-public class Application {
+public class FactoryServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(FactoryServiceApplication.class, args);
     }
 
     @GetMapping("/health")

@@ -1,0 +1,23 @@
+### health check
+# @name health
+GET http://localhost:8091/factory-service/health
+# Authorization: Basic {{access_token}}
+
+### get products
+# @name create_factory
+POST http://localhost:8091/factory-service/v1/factory/ABC
+
+### get products
+# @name query_products
+GET http://localhost:8091/factory-service/v1/ABC/products
+
+### add products
+# @name create_product
+POST  http://localhost:8091/factory-service/v1/ABC/product
+
+{
+    "name": "sample01",
+    "price": 999.99
+}
+
+

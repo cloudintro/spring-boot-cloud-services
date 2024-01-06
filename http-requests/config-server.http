@@ -1,0 +1,11 @@
+### get factory-service default profile configuration
+GET http://localhost:8888/factory-service/default
+
+### get factory-service dev profile configuration
+GET http://localhost:8888/factory-service/dev
+
+### get product-service default profile configuration
+GET http://localhost:8888/product-service/default
+
+### get product-service dev profile configuration
+GET http://localhost:8888/product-service/dev
