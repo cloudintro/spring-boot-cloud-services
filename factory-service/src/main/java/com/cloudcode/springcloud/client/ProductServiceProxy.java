@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "product-service", url = "${product-service.server.url}")
+// @FeignClient(name = "product-service", url = "#{product-service.server.url}")
+@FeignClient(name = "product-service", path = "/product-service")
 public interface ProductServiceProxy {
     @GetMapping("/v1/product")
     ResponseEntity<List<Product>> getProducts(@RequestHeader Map<String, String> headerMap);
