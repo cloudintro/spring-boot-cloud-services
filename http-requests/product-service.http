@@ -2,7 +2,7 @@
 # run below command in browser console
 # btoa("admin"+":"+"Admin_123")
 # @access_token=value of btoa("admin"+":"+"Admin_123")
-
+# use port 8080 for call endpoint via api-gateway
 ### health check
 # @name health
 GET http://localhost:8081/product-service/health

@@ -1,0 +1,18 @@
+
+### api-gateway health
+GET http://localhost:8080/actuator
+
+### factory-service health
+GET http://localhost:8080/FACTORY-SERVICE/factory-service/actuator/health
+
+### factory-service health this will work when lower-case-service-id=true
+GET http://localhost:8080/factory-service/factory-service/actuator/health
+
+### factory-service health
+GET http://localhost:8080/factory-service/actuator/health
+
+### product-service health
+GET http://localhost:8080/PRODUCT-SERVICE/product-service/actuator/health
+
+### product-service health
+GET http://localhost:8080/product-service/actuator/health

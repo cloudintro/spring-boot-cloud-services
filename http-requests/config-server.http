@@ -9,3 +9,12 @@ GET http://localhost:8888/product-service/default
 
 ### get product-service dev profile configuration
 GET http://localhost:8888/product-service/dev
+
+### get product-service qa profile configuration
+GET http://localhost:8888/product-service/qa
+
+### get api-gateway default profile configuration
+GET http://localhost:8888/api-gateway/default
+
+### get api-gateway dev profile configuration
+GET http://localhost:8888/api-gateway/dev
