@@ -1,6 +1,14 @@
+//"rest-client.defaultHeaders": {   
+//    "User-Agent": "vscode-restclient",
+//    "Content-Type": "application/json",
+//    "Authorization": "Basic YWRtaW46QWRtaW5fMTIz"
+//}
 
 ### api-gateway health
-GET http://localhost:8080/actuator
+GET http://localhost:8080/health
+
+### api-gateway actuator health
+GET http://localhost:8080/actuator/health
 
 ### factory-service health
 GET http://localhost:8080/FACTORY-SERVICE/factory-service/actuator/health

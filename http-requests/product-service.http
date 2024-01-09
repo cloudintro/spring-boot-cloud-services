@@ -5,7 +5,7 @@
 # use port 8080 for call endpoint via api-gateway
 ### health check
 # @name health
-GET http://localhost:8081/product-service/health
+GET http://localhost:8081/product-service/actuator/health
 # Authorization: Basic {{access_token}}
 .
 ### get products

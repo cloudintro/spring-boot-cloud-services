@@ -1,20 +1,19 @@
 # use port 8080 for call endpoint via api-gateway
 ### health check
 # @name health
-GET http://localhost:8091/factory-service/health
-# Authorization: Basic {{access_token}}
+GET http://localhost:8080/factory-service/actuator/health
 
 ### get products
 # @name create_factory
-POST http://localhost:8091/factory-service/v1/factory/ABC
+POST http://localhost:8080/factory-service/v1/factory/ABC
 
 ### get products
 # @name query_products
-GET http://localhost:8091/factory-service/v1/ABC/products
+GET http://localhost:8080/factory-service/v1/ABC/products
 
 ### add products
 # @name create_product
-POST  http://localhost:8091/factory-service/v1/ABC/product
+POST  http://localhost:8080/factory-service/v1/ABC/product
 
 {
     "name": "sample08",

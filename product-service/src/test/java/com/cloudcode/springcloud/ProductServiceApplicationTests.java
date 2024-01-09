@@ -3,16 +3,11 @@ package com.cloudcode.springcloud;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import java.util.Base64;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,26 +22,17 @@ class ProductServiceApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Value("${spring.security.user.name}")
-    private String username;
-
-    @Value("${spring.security.user.password}")
-    private String password;
-
     @Test
-    public void health_status_200_Ok(@Value("${spring.application.name}") String appName) throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Basic " + new String(Base64.getEncoder().encode((username + ":" + password).getBytes())));
-        MockHttpServletRequestBuilder request = get("/health").headers(headers);
-        MvcResult response = mockMvc.perform(request).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-        String name = (String) new ObjectMapper().readValue(response.getResponse().getContentAsString(), Map.class).get("name");
-        assertEquals(appName, name);
+    public void health_status_200_Ok() throws Exception {
+        String responseBody = """
+                {
+                    "status": "UP"
+                }
+                """;
+        MvcResult response = mockMvc.perform(get("/actuator/health")).andExpect(status().isOk())
+                .andExpect(content().json(responseBody)).andReturn();
+        String status = (String) new ObjectMapper().readValue(response.getResponse().getContentAsString(), Map.class)
+                .get("status");
+        assertEquals("UP", status);
     }
-
-    @Test
-    public void health_status_401_Unauthorized() throws Exception {
-        mockMvc.perform(get("/health")).andExpect(status().isUnauthorized());
-    }
-
 }
