@@ -4,6 +4,7 @@ import com.cloudcode.springcloud.model.Factory;
 import com.cloudcode.springcloud.model.FactoryResponse;
 import com.cloudcode.springcloud.model.Product;
 import com.cloudcode.springcloud.service.AppService;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 @Log4j2
 @RestController
@@ -31,6 +34,7 @@ public class AppController {
     }
 
     @GetMapping("/{factoryName}/products")
+    @Retry(name = "product-service", fallbackMethod = "getLocalProducts")
     public ResponseEntity<FactoryResponse> getProducts(@PathVariable String factoryName) {
         log.info("received get product request for factory: {}", factoryName);
         return new ResponseEntity<>(appService.getFactoryProducts(factoryName), HttpStatus.OK);
@@ -42,5 +46,11 @@ public class AppController {
         log.info("received add product requestfor factory: {}, product: {}", factoryName, product);
         return new ResponseEntity<>(appService.createFactoryProduct(factoryName, product), HttpStatus.CREATED);
     }
+
+    private ResponseEntity<FactoryResponse> getLocalProducts(String factoryName, RuntimeException ex) {
+        log.warn("product-service is down, getting products from local factory: 2{}", ex.getMessage());
+        return new ResponseEntity<>(new FactoryResponse(factoryName, new ArrayList<>()), HttpStatus.PARTIAL_CONTENT);
+    }
+
 
 }

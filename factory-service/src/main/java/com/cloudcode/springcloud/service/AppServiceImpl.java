@@ -15,8 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,28 +49,8 @@ public class AppServiceImpl implements AppService {
         Factory factory = appRepo.findById(factoryName).orElseThrow(() -> new AppCustomException(
                 messageSource.getMessage("error.data.does.not.exists", new Object[]{factoryName},
                         Locale.getDefault())));
-        List<Product> products = getProducts(factory);
-        return new FactoryResponse(factoryName, products);
-    }
-
-    private List<Product> getProducts(Factory factory) {
-        log.info("getting products from product-service");
-        try {
-            return productService.getProducts(getHeaders()).getBody();
-        } catch (Exception e) {
-            log.warn("product-service is down, getting products from local factory", e);
-            return getLocalProducts(factory);
-        }
-    }
-
-    private List<Product> getLocalProducts(Factory factory) {
-        if (CollectionUtils.isEmpty(factory.getProductNames())) {
-            return Collections.emptyList();
-        }
-        log.warn("returning local products");
-        List<Product> products = new ArrayList<>();
-        factory.getProductNames().forEach(name -> products.add(new Product(name, 999999.99D)));
-        return products;
+        List<Product> products = productService.getProducts(getHeaders()).getBody();
+        return new FactoryResponse(factory.getFactoryName(), products);
     }
 
     @Override
