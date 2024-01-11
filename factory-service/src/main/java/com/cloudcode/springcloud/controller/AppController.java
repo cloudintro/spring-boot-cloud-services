@@ -4,6 +4,9 @@ import com.cloudcode.springcloud.model.Factory;
 import com.cloudcode.springcloud.model.FactoryResponse;
 import com.cloudcode.springcloud.model.Product;
 import com.cloudcode.springcloud.service.AppService;
+
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -28,6 +31,7 @@ public class AppController {
     private AppService appService;
 
     @PostMapping("/factory/{factoryName}")
+    @RateLimiter(name = "default")
     public ResponseEntity<Factory> createFactory(@PathVariable String factoryName) {
         log.info("received create factory request for : {}", factoryName);
         return new ResponseEntity<>(appService.createFactory(factoryName), HttpStatus.CREATED);
@@ -41,8 +45,9 @@ public class AppController {
     }
 
     @PostMapping("/{factoryName}/product")
+    @Bulkhead(name = "default")
     public ResponseEntity<FactoryResponse> createProduct(@PathVariable String factoryName,
-                                                         @RequestBody @Valid Product product) {
+            @RequestBody @Valid Product product) {
         log.info("received add product requestfor factory: {}, product: {}", factoryName, product);
         return new ResponseEntity<>(appService.createFactoryProduct(factoryName, product), HttpStatus.CREATED);
     }
@@ -51,6 +56,5 @@ public class AppController {
         log.warn("product-service is down, getting products from local factory: 2{}", ex.getMessage());
         return new ResponseEntity<>(new FactoryResponse(factoryName, new ArrayList<>()), HttpStatus.PARTIAL_CONTENT);
     }
-
 
 }
